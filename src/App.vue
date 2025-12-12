@@ -1,9 +1,22 @@
 <script setup lang="ts">
-import HelloWorld from './components/HelloWorld.vue'
+import HelloWorld from '@/components/HelloWorld.vue'
+
+import {
+  ArticleIcon
+} from 'tdesign-icons-vue-next';
 </script>
 
 <template>
   <div>
+    <div>
+      <article-icon size="50" :fill-color='["transparent","transparent"]' :stroke-color='["currentColor","#0052d9"]' :stroke-width="2"/>
+    </div>
+    <div>
+      <t-icon name="article" size="50" style="color:red" />
+    </div>
+    <div>
+      <t-button size="large" theme="primary">填充按钮</t-button>
+    </div>
     <a href="https://vite.dev" target="_blank">
       <img src="/vite.svg" class="logo" alt="Vite logo" />
     </a>
