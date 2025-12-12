@@ -28,7 +28,8 @@ export default [
         defineExpose: 'readonly',
         withDefaults: 'readonly',
         process: 'readonly',
-        __dirname: 'readonly'
+        __dirname: 'readonly',
+        console: 'readonly'
       }
     },
     plugins: {
