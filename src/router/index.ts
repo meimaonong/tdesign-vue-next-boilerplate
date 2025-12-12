@@ -18,19 +18,20 @@ const router = createRouter({
       meta: {
         title: '主题切换演示'
       }
-    },
-  ],
-});
+    }
+  ]
+})
 
 // 路由守卫 - 设置页面标题
 router.beforeEach((to, _, next) => {
   // 设置页面标题
   if (to.meta.title) {
-    document.title = `${to.meta.title} - ${import.meta.env.VITE_APP_TITLE || 'TDesign Vue Next Boilerplate'}`;
+    document.title = `${to.meta.title} - ${import.meta.env.VITE_APP_TITLE || 'TDesign Vue Next Boilerplate'}`
   } else {
-    document.title = import.meta.env.VITE_APP_TITLE || 'TDesign Vue Next Boilerplate';
+    document.title =
+      import.meta.env.VITE_APP_TITLE || 'TDesign Vue Next Boilerplate'
   }
-  next();
-});
+  next()
+})
 
-export default router;
+export default router

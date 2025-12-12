@@ -1,58 +1,58 @@
 <script setup lang="ts">
-import { ref, onMounted } from 'vue';
+import { ref, onMounted } from 'vue'
 
 // 创建响应式变量控制主题模式
-const isDarkMode = ref(false);
-const storedTheme = ref('');
+const isDarkMode = ref(false)
+const storedTheme = ref('')
 
 // 初始化主题模式
 onMounted(() => {
   // 检查本地存储或系统偏好
-  const savedTheme = localStorage.getItem('theme-mode');
+  const savedTheme = localStorage.getItem('theme-mode')
   if (savedTheme) {
-    isDarkMode.value = savedTheme === 'dark';
-    storedTheme.value = savedTheme;
+    isDarkMode.value = savedTheme === 'dark'
+    storedTheme.value = savedTheme
   } else {
     // 检查系统偏好
-    isDarkMode.value = window.matchMedia('(prefers-color-scheme: dark)').matches;
-    storedTheme.value = isDarkMode.value ? 'dark' : 'light';
+    isDarkMode.value = window.matchMedia('(prefers-color-scheme: dark)').matches
+    storedTheme.value = isDarkMode.value ? 'dark' : 'light'
   }
   // 应用初始主题
-  applyTheme();
-});
+  applyTheme()
+})
 
 // 切换主题模式
 const toggleTheme = (value: boolean) => {
-  isDarkMode.value = value;
-  storedTheme.value = value ? 'dark' : 'light';
-  applyTheme();
+  isDarkMode.value = value
+  storedTheme.value = value ? 'dark' : 'light'
+  applyTheme()
   // 保存到本地存储
-  localStorage.setItem('theme-mode', value ? 'dark' : 'light');
-};
+  localStorage.setItem('theme-mode', value ? 'dark' : 'light')
+}
 
 // 应用主题到根元素
 const applyTheme = () => {
-  const root = document.documentElement;
-  root.setAttribute('theme-mode', isDarkMode.value ? 'dark' : 'light');
-};
+  const root = document.documentElement
+  root.setAttribute('theme-mode', isDarkMode.value ? 'dark' : 'light')
+}
 
 // 重置主题设置
 const resetTheme = () => {
-  localStorage.removeItem('theme-mode');
-  isDarkMode.value = false;
-  storedTheme.value = '';
-  applyTheme();
-};
+  localStorage.removeItem('theme-mode')
+  isDarkMode.value = false
+  storedTheme.value = ''
+  applyTheme()
+}
 </script>
 
 <template>
   <div class="demo-container">
     <h2>暗亮色主题切换演示</h2>
-    
+
     <div class="theme-switch-container">
       <span class="theme-label">亮色</span>
-      <t-switch 
-        v-model="isDarkMode" 
+      <t-switch
+        v-model="isDarkMode"
         @change="toggleTheme"
         :label="['', '']"
         size="large"
@@ -69,7 +69,9 @@ const resetTheme = () => {
 
       <div class="demo-info">
         <h4>当前主题状态</h4>
-        <p><strong>主题模式:</strong> {{ isDarkMode ? '暗色模式' : '亮色模式' }}</p>
+        <p>
+          <strong>主题模式:</strong> {{ isDarkMode ? '暗色模式' : '亮色模式' }}
+        </p>
         <p><strong>本地存储:</strong> {{ storedTheme || '未设置' }}</p>
         <button @click="resetTheme" class="reset-button">重置主题设置</button>
       </div>
