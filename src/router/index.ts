@@ -1,5 +1,4 @@
-import { createRouter, createWebHistory } from 'vue-router';
-import { ThemeDemo } from '../views/demo';
+import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
   history: createWebHistory(),
@@ -7,7 +6,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'Home',
-      component: () => import('../views/Home.vue'),
+      component: () => import('@/views/Home.vue'),
       meta: {
         title: '首页'
       }
@@ -15,7 +14,7 @@ const router = createRouter({
     {
       path: '/about',
       name: 'About',
-      component: () => import('../views/About.vue'),
+      component: () => import('@/views/About.vue'),
       meta: {
         title: '关于'
       }
@@ -23,7 +22,7 @@ const router = createRouter({
     {
       path: '/demo/theme',
       name: 'ThemeDemo',
-      component: ThemeDemo,
+      component: () => import('@/views/demo/ThemeDemo.vue'),
       meta: {
         title: '主题切换演示'
       }
