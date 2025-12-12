@@ -6,10 +6,10 @@ This file provides guidance to Claude Code (claude.ai/code) when working with co
 
 - **Vue 3** (Composition API + `<script setup>`)
 - **TypeScript** (严格模式)
-- **Vite** (构建工具)
-- **TDesign Mobile Vue** (移动端UI组件库)
+- **Vite 7.2.4** (构建工具)
+- **TDesign Mobile Vue 1.11.1** (移动端UI组件库)
 - **Vue Router 4** (路由管理)
-- **Pinia** (状态管理)
+- **Pinia 3.0.4** (状态管理)
 - **Sass** (CSS预处理器)
 
 ## 常用命令
@@ -20,9 +20,13 @@ pnpm dev        # 启动开发服务器
 pnpm preview    # 预览生产构建
 
 # 构建
-pnpm build      # 类型检查 + 构建生产版本
+pnpm build      # TypeScript类型检查 + 构建生产版本
 
-# 注意：项目目前未配置 lint 和 test 命令
+# 代码规范
+pnpm lint       # 运行ESLint检查并自动修复
+pnpm lint:check # 仅检查ESLint错误，不修复
+pnpm format     # 使用Prettier格式化代码
+pnpm format:check # 检查代码格式是否符合规范
 ```
 
 ## 项目架构
@@ -33,11 +37,20 @@ pnpm build      # 类型检查 + 构建生产版本
 src/
 ├── assets/     # 静态资源
 ├── router/     # 路由配置
+│   └── index.ts
 ├── stores/     # Pinia 状态管理
-├── styles/     # 样式文件（包含主题变量）
+│   └── index.ts
+├── styles/     # 样式文件
+│   ├── theme.scss    # 主题变量(亮色/暗色模式)
+│   ├── global.scss   # 全局样式
+│   └── style.scss    # 自定义样式
 ├── views/      # 页面组件
+│   ├── Home.vue
+│   └── demo/
+│       └── ThemeDemo.vue
 ├── App.vue     # 根组件
-└── main.ts     # 应用入口
+├── main.ts     # 应用入口
+└── vite-env.d.ts # Vite环境变量类型声明
 ```
 
 ### 关键配置
@@ -62,12 +75,20 @@ src/
    - 主题设置保存在 localStorage
    - 主题变量定义在 `src/styles/theme.scss`
 
+5. **代码规范**
+   - ESLint 使用 flat config 格式 (eslint.config.js)
+   - Prettier 配置：单引号、无分号、2空格缩进
+   - Husky + lint-staged 自动化 pre-commit 检查
+   - Vue 组件必须使用 PascalCase 命名
+   - 生产环境禁用 console 和 debugger
+
 ## 开发约定
 
 1. **组件开发**
    - 使用 `<script setup>` 语法
    - TypeScript 严格模式，必须定义类型
    - 组件文件使用 PascalCase 命名
+   - Props 必须定义默认值和类型
 
 2. **样式编写**
    - 使用 Sass 预处理器
@@ -78,20 +99,40 @@ src/
    - 使用 Pinia
    - store 模块放在 `src/stores/` 目录下
 
+4. **Git 提交**
+   - 提交前自动运行 ESLint 和 Prettier
+   - 确保 lint 检查通过后再提交
+
+## 构建流程
+
+1. **开发环境**
+   - `pnpm dev` 启动热重载开发服务器
+
+2. **生产构建**
+   - `pnpm build` 先执行 TypeScript 类型检查
+   - 类型错误会导致构建失败
+   - 构建输出到 `dist/` 目录
+
+3. **预览构建**
+   - `pnpm preview` 预览生产构建结果
+
 ## 注意事项
 
 1. **UI 组件库**
    - 项目全量引入了 TDesign Mobile Vue
    - 组件库样式已在 `main.ts` 中引入
 
-2. **代码规范**
-   - 项目目前未配置 ESLint 和 Prettier
-   - 建议后续添加以统一代码风格
+2. **TypeScript**
+   - 使用项目引用配置
+   - tsconfig.app.json 包含应用特定的配置
+   - 严格模式，所有类型必须明确定义
 
-3. **构建流程**
-   - 构建前会自动进行 TypeScript 类型检查
-   - 类型错误会导致构建失败
+3. **ESLint 配置**
+   - 使用最新的 flat config 格式
+   - 集成了 Vue、TypeScript、Prettier 插件
+   - Prettier 违规被视为 ESLint 错误
 
 4. **Git 工作流**
    - 主分支：`main`
    - 开发前请创建新分支
+   - 使用 Husky 管理 Git hooks
