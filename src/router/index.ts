@@ -18,6 +18,14 @@ const router = createRouter({
       meta: {
         title: '主题切换演示'
       }
+    },
+    {
+      path: '/login',
+      name: 'Login',
+      component: () => import('@/views/Login.vue'),
+      meta: {
+        title: '登录'
+      }
     }
   ]
 })
