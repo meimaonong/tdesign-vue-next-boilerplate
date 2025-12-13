@@ -46,7 +46,7 @@ const resetTheme = () => {
 </script>
 
 <template>
-  <div class="demo-container">
+  <div class="page-container demo-container">
     <h2>暗亮色主题切换演示</h2>
 
     <div class="theme-switch-container">
@@ -82,8 +82,9 @@ const resetTheme = () => {
 <style lang="scss" scoped>
 .demo-container {
   padding: 30px;
-  max-width: 800px;
   margin: 0 auto;
+  background-color: var(--td-bg-color-container);
+  box-sizing: border-box;
 
   h2 {
     text-align: center;
@@ -116,10 +117,7 @@ const resetTheme = () => {
   grid-template-columns: 1fr 1fr;
   gap: 20px;
   margin-top: 20px;
-
-  @media (max-width: 768px) {
-    grid-template-columns: 1fr;
-  }
+  grid-template-columns: 1fr;
 }
 
 .demo-card {
@@ -153,15 +151,6 @@ const resetTheme = () => {
   font-weight: 500;
   cursor: pointer;
   transition: all 0.2s ease;
-
-  &:hover {
-    background-color: var(--td-brand-color-hover);
-    transform: translateY(-1px);
-  }
-
-  &:active {
-    transform: translateY(0);
-  }
 }
 
 .demo-info {
